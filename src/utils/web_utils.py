@@ -1,6 +1,7 @@
 from pathlib import Path
 import requests
 from config import logger
+from bs4 import BeautifulSoup
 
 
 def download_file(url: str, dest: Path, timeout: int = 30, chunk_size: int = 8192) -> Path:
@@ -17,3 +18,10 @@ def download_file(url: str, dest: Path, timeout: int = 30, chunk_size: int = 819
                     f.write(chunk)
     logger.info(f"File saved in {dest}")
     return dest
+
+
+def get_soup(url: str, timeout: int = 30) -> BeautifulSoup:
+    logger.info(f"HTML: {url}")
+    resp = requests.get(url, timeout=timeout, headers={"User-Agent": "python-lab/1.0"})
+    resp.raise_for_status()
+    return BeautifulSoup(resp.text, "html.parser")
