@@ -48,5 +48,6 @@ def main():
     to_excel_safe(combo, out_path, index=False)
     logger.info(f"File generated: {out_path} ({len(combo)})")
 
+
 if __name__ == "__main__":
     main()
